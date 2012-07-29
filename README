@@ -1,0 +1,31 @@
+Copyright © 2012 Iain Nicol
+See the end of the file for license conditions.
+
+
+libbsa is the standard library for bscc, the Brainsick code compiler.
+
+libbsa is free software; see the file COPYING for the full text of the
+license.  You may notice that libbsa compiles to a .dll file.  DLLs are
+generally known as dynamically linked libraries for the proprietary
+Microsoft Windows operating system.  However, libbsa fully works on
+Wine, which runs on GNU/Linux.  Wine is free software.
+
+The file INSTALL contains instructions on building and installing this
+library.
+
+See the file NEWS for information on user-visible changes to this
+library.
+
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

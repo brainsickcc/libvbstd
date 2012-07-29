@@ -1,0 +1,40 @@
+Compilation and installation guide
+
+Copyright © 2012 Iain Nicol
+See the end of the file for license conditions.
+
+
+These instructions should work on modern Unix-like systems.
+
+First, install bscc plus its other runtime dependencies.  bscc should be
+available whence you obtained libbsa.  Next, from your package manager,
+install the program ``llc''; this will be in a package named ``LLVM'' or
+similar.
+
+Now you can run
+  $ make
+in this directory to compile this library.
+
+Next, to install this library, run
+  $ sudo PREFIX=/usr/local make install
+or equivalently
+  $ su
+  # PREFIX=/usr/local make install
+If you do not specify PREFIX, it will default to /usr/local.  Whilst you
+can specify another prefix, this is of limited use: the compiler bscc
+can only make use of this library if it is installed with the default
+PREFIX.
+
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
