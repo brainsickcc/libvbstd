@@ -33,7 +33,7 @@ endif
 # followed by Debian as well.
 LIBDIR ?= $(PREFIX)/$(TRIPLET)/sys-root/mingw/lib
 
-version = 0.1.0
+version = 0.2.0
 
 .PHONY: all
 all: VBA/Interaction.o
