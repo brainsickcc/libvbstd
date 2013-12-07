@@ -39,7 +39,7 @@ version = 0.1.0
 # Note that ``@ #'' prevents comments inside the rules below from being
 # printed to stdout.
 .PHONY: all
-all: VBA/Interaction.S
+all: VBA/Interaction.o
 	@ # We produce a DLL, but we don't use the special-purpose tools
 	@ # dlltool or dllwrap.  These are deprecated; see
 	@ # <http://oldwiki.mingw.org/index.php/dllwrap> and its
@@ -47,12 +47,15 @@ all: VBA/Interaction.S
 	@ #
 	@ # -mwindows is used to set the subsystem to GUI, instead of
 	@ # console.
-	"$(GCC)" -shared -fPIC VBA/Interaction.S -o libbsa.dll \
+	"$(GCC)" -shared VBA/Interaction.o -o libbsa.dll \
 	         -Wl,--out-implib=libbsa.dll.a -mwindows
 	"$(STRIP)" libbsa.dll
 
 %.S : %.ll
 	"$(LLC)" -mtriple="$(TRIPLET)" -relocation-model=pic $< -o "$@"
+
+%.o : %.S
+	"$(GCC)" -fPIC -mwindows -c $< -o "$@"
 
 .PHONY: install
 install:
@@ -64,6 +67,7 @@ install:
 .PHONY: clean
 clean:
 	rm -f libbsa.dll libbsa.dll.a
+	rm -f VBA/Interaction.o
 	rm -f VBA/Interaction.S
 	rm -Rf dist-tmp/
 
