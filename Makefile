@@ -22,51 +22,37 @@ TRIPLET ?= i686-w64-mingw32
 LLC ?= llc
 
 ifeq ($(TRIPLET),)
+  AR ?= ar
   GCC ?= gcc
-  STRIP ?= strip
 else
+  AR ?= $(TRIPLET)-ar
   GCC ?= $(TRIPLET)-gcc
-  STRIP ?= $(TRIPLET)-strip
 endif
 
 # We follow the directory layout used by Fedora which appears to be
 # followed by Debian as well.
-BINDIR ?= $(PREFIX)/$(TRIPLET)/sys-root/mingw/bin
 LIBDIR ?= $(PREFIX)/$(TRIPLET)/sys-root/mingw/lib
 
 version = 0.1.0
 
-# Note that ``@ #'' prevents comments inside the rules below from being
-# printed to stdout.
 .PHONY: all
 all: VBA/Interaction.o
-	@ # We produce a DLL, but we don't use the special-purpose tools
-	@ # dlltool or dllwrap.  These are deprecated; see
-	@ # <http://oldwiki.mingw.org/index.php/dllwrap> and its
-	@ # outgoing links.
-	@ #
-	@ # -mwindows is used to set the subsystem to GUI, instead of
-	@ # console.
-	"$(GCC)" -shared VBA/Interaction.o -o libbsa.dll \
-	         -Wl,--out-implib=libbsa.dll.a -mwindows
-	"$(STRIP)" libbsa.dll
+	"$(AR)" rcs libbsa.a VBA/Interaction.o
 
 %.S : %.ll
-	"$(LLC)" -mtriple="$(TRIPLET)" -relocation-model=pic $< -o "$@"
+	"$(LLC)" -mtriple="$(TRIPLET)" -relocation-model=static $< -o "$@"
 
 %.o : %.S
-	"$(GCC)" -fPIC -mwindows -c $< -o "$@"
+	"$(GCC)" -c $< -o "$@"
 
 .PHONY: install
 install:
-	mkdir -p "$(BINDIR)"
-	cp libbsa.dll "$(BINDIR)"
 	mkdir -p "$(LIBDIR)"
-	cp libbsa.dll.a "$(LIBDIR)"
+	cp libbsa.a "$(LIBDIR)"
 
 .PHONY: clean
 clean:
-	rm -f libbsa.dll libbsa.dll.a
+	rm -f libbsa.a
 	rm -f VBA/Interaction.o
 	rm -f VBA/Interaction.S
 	rm -Rf dist-tmp/

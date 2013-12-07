@@ -5,10 +5,8 @@ See the end of the file for license conditions.
 libbsa is the standard library for bscc, the Brainsick code compiler.
 
 libbsa is free software; see the file COPYING for the full text of the
-license.  You may notice that libbsa compiles to a .dll file.  DLLs are
-generally known as dynamically linked libraries for the proprietary
-Microsoft Windows operating system.  However, libbsa fully works on
-Wine, which runs on GNU/Linux.  Wine is free software.
+license.  libbsa fully works on Wine, which runs on GNU/Linux.  Wine is
+free software.
 
 The file INSTALL contains instructions on building and installing this
 library.
