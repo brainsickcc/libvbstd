@@ -19,7 +19,7 @@ PREFIX ?= /usr/local
 # We use MinGW-w64's 32-bit--targetting toolchain.
 TRIPLET ?= i686-w64-mingw32
 # llc is from LLVM.
-LLC ?= llc
+LLC ?= llc-3.4
 
 ifeq ($(TRIPLET),)
   AR ?= ar
