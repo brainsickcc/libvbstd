@@ -2,7 +2,10 @@ Copyright © 2012 Iain Nicol
 See the end of the file for license conditions.
 
 
-libvbstd is the standard library for bscc, the Brainsick code compiler.
+libvbstd is an open source implementation of the Visual Basic for
+Applications (VBA) standard library.  libvbstd is the standard library
+for the Brainsick code compiler (bscc); Brainsick is an open source
+compiler for the classic, pre.NET, Visual Basic (VB) language.
 
 libvbstd is free software; see the file COPYING for the full text of
 the license.  libvbstd fully works on Wine, which runs on GNU/Linux.
