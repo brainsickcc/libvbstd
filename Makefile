@@ -13,20 +13,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# ``?='' only sets a Makefile variable if it has not been set already
-# (namely, externally).
 PREFIX ?= /usr/local
 # We use MinGW-w64's 32-bit--targetting toolchain.
-TRIPLET ?= i686-w64-mingw32
+TRIPLET = i686-w64-mingw32
 # llc is from LLVM.
-LLC ?= llc-3.4
+LLC = llc-3.4
 
-ifeq ($(TRIPLET),)
-  AR ?= ar
-  GCC ?= gcc
-else
-  AR ?= $(TRIPLET)-ar
-  GCC ?= $(TRIPLET)-gcc
+AR = ar
+CC = gcc
+ifneq ($(TRIPLET),)
+  AR := $(TRIPLET)-$(AR)
+  CC := $(TRIPLET)-$(CC)
 endif
 
 # We follow the directory layout used by Fedora which appears to be
@@ -43,7 +40,7 @@ all: VBA/Interaction.o
 	"$(LLC)" -mtriple="$(TRIPLET)" -relocation-model=static $< -o "$@"
 
 %.o : %.S
-	"$(GCC)" -c $< -o "$@"
+	"$(CC)" -c $< -o "$@"
 
 .PHONY: install
 install:
