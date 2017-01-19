@@ -7,7 +7,7 @@ See the end of the file for license conditions.
 These instructions should work on modern Unix-like systems.
 
 First, install bscc plus its other runtime dependencies.  bscc should
-be be available whence you obtained libbsa.  Next, from your package
+be be available whence you obtained libvbstd.  Next, from your package
 manager, install the program ``llc-3.4''; this will be in a package
 named ``LLVM-3.4'' or similar.
 

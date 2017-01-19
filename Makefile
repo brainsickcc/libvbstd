@@ -34,7 +34,7 @@ version = 0.2.0
 
 .PHONY: all
 all: VBA/Interaction.o
-	"$(AR)" rcs libbsa.a VBA/Interaction.o
+	"$(AR)" rcs libvbstd.a VBA/Interaction.o
 
 %.S : %.ll
 	"$(LLC)" -mtriple="$(TRIPLET)" -relocation-model=static $< -o "$@"
@@ -45,11 +45,11 @@ all: VBA/Interaction.o
 .PHONY: install
 install:
 	mkdir -p "$(LIBDIR)"
-	cp libbsa.a "$(LIBDIR)"
+	cp libvbstd.a "$(LIBDIR)"
 
 .PHONY: clean
 clean:
-	rm -f libbsa.a
+	rm -f libvbstd.a
 	rm -f VBA/Interaction.o
 	rm -f VBA/Interaction.S
 	rm -Rf dist-tmp/
@@ -57,9 +57,10 @@ clean:
 .PHONY: dist
 dist:
 	rm -Rf dist-tmp/
-	mkdir -p "dist-tmp/libbsa-$(version)/VBA/"
+	mkdir -p "dist-tmp/libvbstd-$(version)/VBA/"
 	cp AUTHORS COPYING .gitignore INSTALL Makefile NEWS README \
-	   "dist-tmp/libbsa-$(version)/"
-	cp VBA/Interaction.ll "dist-tmp/libbsa-$(version)/VBA/"
-	tar -czf "libbsa-$(version).tar.gz" -C dist-tmp/ "libbsa-$(version)"
+	   "dist-tmp/libvbstd-$(version)/"
+	cp VBA/Interaction.ll "dist-tmp/libvbstd-$(version)/VBA/"
+	tar -czf "libvbstd-$(version).tar.gz" -C dist-tmp/ \
+	    "libvbstd-$(version)"
 	rm -Rf dist-tmp/
