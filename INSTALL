@@ -3,27 +3,12 @@ Compilation and installation guide
 Copyright © 2012 Iain Nicol
 See the end of the file for license conditions.
 
+Building Brainsick and its dependencies is simple via the Brainsick
+build repository.  Namely, perform:
 
-These instructions should work on modern Unix-like systems.
+  git clone --recursive https://gitlab.com/brainsick/build.git brainsick
 
-First, install bscc plus its other runtime dependencies.  bscc should
-be be available whence you obtained libvbstd.  Next, from your package
-manager, install the program ``llc-3.4''; this will be in a package
-named ``LLVM-3.4'' or similar.
-
-Now you can run
-  $ make
-in this directory to compile this library.
-
-Next, to install this library, run
-  $ sudo PREFIX=/usr/local make install
-or equivalently
-  $ su
-  # PREFIX=/usr/local make install
-If you do not specify PREFIX, it will default to /usr/local.  Whilst you
-can specify another prefix, this is of limited use: the compiler bscc
-can only make use of this library if it is installed with the default
-PREFIX.
+Then follow the INSTALL file in build repository.
 
 
 This program is free software: you can redistribute it and/or modify
