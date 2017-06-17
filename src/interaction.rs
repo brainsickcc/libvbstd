@@ -14,13 +14,13 @@
 // License along with this program.  If not, see
 // <http://www.gnu.org/licenses/>.
 
-extern crate user32;
-extern crate winapi;
-
 use std::ffi::OsStr;
 use std::iter;
 use std::os::windows::ffi::OsStrExt;
 use std::ptr;
+
+use user32;
+use winapi;
 
 fn encode_wide(s: &str) -> Vec<u16> {
     OsStr::new(s).encode_wide().chain(iter::once(0)).collect()
