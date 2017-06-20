@@ -16,27 +16,59 @@
 
 use std::ffi::OsStr;
 use std::iter;
+use std::io;
+use std::io::Write;
+use std::mem;
 use std::os::windows::ffi::OsStrExt;
 use std::ptr;
 
 use user32;
 use winapi;
+use winapi::oaidl::VARIANT;
+
+use winapi::{winerror, wtypes};
+use winapi::oaidl::VARIANTARG;
+use winapi::wtypes::VARTYPE;
+
+
+
+extern "system" {
+    fn VariantClear(pvarg: *mut VARIANTARG);
+    fn VariantCopy(pvargDest: *mut VARIANTARG, pvargSrc: *const VARIANTARG);
+    // Don't alias src and dest, else the src will be mutated.  Yet we're saying it's const.
+    fn VariantChangeType(pvargDest: *mut VARIANTARG,
+                         pvarSrc: *const VARIANTARG,
+                         wFlags: winapi::USHORT,
+                         vt: VARTYPE)
+                         -> winerror::HRESULT;
+}
+
 
 fn encode_wide(s: &str) -> Vec<u16> {
     OsStr::new(s).encode_wide().chain(iter::once(0)).collect()
 }
 
+
+
+
+
 #[allow(non_snake_case)]
 #[no_mangle]
 // TODO: implement this function against the correct prototype.
-// Currently we implement only the first parameter, which we take as a
-// string.  Also, the return type is wrong.
-pub extern "system" fn MsgBox(prompt: *const u16) {
-    let project1 = encode_wide("Project1");
+// Currently we implement only the first parameter.
+// Also, the return type is wrong.
+pub extern "system" fn MsgBox(prompt: *const VARIANT) {
+    let mut promptCoerced: VARIANT = unsafe { mem::zeroed() };
     unsafe {
+        VariantChangeType(&mut promptCoerced, prompt, 0, wtypes::VT_BSTR.0 as VARTYPE);
+        if promptCoerced.vt() != &(wtypes::VT_BSTR.0 as VARTYPE) {
+            return;
+        }
+        let msg = *promptCoerced.bstrVal();
+        let project1 = encode_wide("Project1 (WOO)");
         user32::MessageBoxW(
             ptr::null_mut(),
-            prompt,
+            msg,
             project1.as_ptr(),
             winapi::MB_OK,
         )
