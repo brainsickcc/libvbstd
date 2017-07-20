@@ -15,7 +15,7 @@
 
 [package]
 name = "vbstd"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Iain Nicol"]
 description = "Brainsick standard library"
 homepage = "https://www.brainsick.cc"
